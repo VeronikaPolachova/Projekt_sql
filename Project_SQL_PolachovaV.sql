@@ -27,9 +27,22 @@ LEFT JOIN czechia_payroll_value_type as cpvt
 ;
 
 
-
-
-
+-- JOIN price, category, region
+SELECT 
+	year(cp.date_from),
+	cp.value AS value,
+	cpc.price_value,
+	cpc.price_unit,
+	cp.category_code,
+	cpc.name AS category,
+	cp.region_code,
+	cr.name AS region
+FROM czechia_price as cp
+LEFT JOIN czechia_price_category as cpc 
+	ON cp.category_code = cpc.code 
+LEFT JOIN czechia_region as cr 
+ON cp.region_code = cr.code 
+;
 
 	
 
