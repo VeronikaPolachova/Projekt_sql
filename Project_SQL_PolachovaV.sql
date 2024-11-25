@@ -45,8 +45,7 @@ ON cp.region_code = cr.code
 ;
 
 
--- JOIN selectu A a B 
-SELECT 
+-- JOIN selectu A a B a economies
 	A.*,
 	B.*, 
 	e.year,
