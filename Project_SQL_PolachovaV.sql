@@ -46,9 +46,12 @@ ON cp.region_code = cr.code
 
 
 -- JOIN selectu A a B a economies
+-- tabulka 1
+
+CREATE TABLE t_veronika_polachova_project_SQL_primary_final AS 
+SELECT
 	A.*,
 	B.*, 
-	e.year,
 	e.GDP, 
 	e.population,
 	e.taxes
@@ -66,7 +69,8 @@ FROM (
 		LEFT JOIN czechia_price_category as cpc 
 			ON cp.category_code = cpc.code 
 		LEFT JOIN czechia_region as cr 
-		ON cp.region_code = cr.code) AS A 
+		ON cp.region_code = cr.code
+		) AS A
 	LEFT JOIN (
 			SELECT 
 			cp.payroll_year, 
@@ -88,7 +92,8 @@ FROM (
 		LEFT JOIN czechia_payroll_unit as cpu 
 			ON cp.unit_code = cpu.code 
 		LEFT JOIN czechia_payroll_value_type as cpvt 
-			ON cp.value_type_code = cpvt.code) AS B
+			ON cp.value_type_code = cpvt.code
+			) AS B
 	ON A.year = B.payroll_year
 LEFT JOIN economies e 
 	ON A.year = e.year
@@ -96,6 +101,10 @@ LEFT JOIN economies e
 WHERE A.region_code IS NULL 
 AND B.value_payroll IS NOT NULL
 AND country = 'Czech Republic'
+;
+
+SELECT *
+FROM t_veronika_polachova_project_SQL_primary_final tvppspf
 ;
 	
 
