@@ -1,6 +1,6 @@
 -- PROJECT SQL --
 
--- tvorim tabulku 1
+-- TABULKA 1 
 
 -- JOIN payroll, payroll_calculation, payroll_industry_branch, payroll_unit, payroll_value_type -- AS select B
 SELECT 
@@ -46,7 +46,8 @@ ON cp.region_code = cr.code
 
 
 -- JOIN selectu A a B a economies
--- tabulka 1
+
+-- TABULKA 1: 
 
 CREATE OR REPLACE TABLE t_veronika_polachova_project_SQL_primary_final AS 
 SELECT
@@ -106,8 +107,4 @@ AND B.calculation_code = 200
 AND B.industry_branch_code IS NOT NULL
 ;
 
-SELECT *
-FROM t_veronika_polachova_project_SQL_primary_final tvppspf
-;
-	
 
