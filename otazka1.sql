@@ -15,7 +15,22 @@ WITH cte_salary_history AS (
 	ORDER BY industry_branch_name, payroll_year 
 	)
 SELECT *,
-	   ROUND (AVG(salary_annual_growth) OVER (PARTITION BY industry_branch_name), 2) AS avg_salary_growth -- prumerny rust na kazde odvetvi za cele obdobi v procentech
+	CASE 
+			WHEN salary_annual_growth > 0 THEN 'annual_increase'
+			WHEN salary_annual_growth < 0 THEN 'annual_decrease'
+			WHEN salary_annual_growth = 0 THEN 'annual_stagnation'
+			ELSE NULL
+		END AS flag_annual_salary_growth,
+		CASE 
+			WHEN salary_annual_growth IS NOT NULL THEN ROUND(AVG(salary_annual_growth) OVER (PARTITION BY industry_branch_name),2)
+			ELSE NULL
+		END AS overall_growth_per_industry, -- celkovy prumerny rust mezd v kazdem odetvi za celkove obdobi 
+		CASE
+			WHEN AVG(salary_annual_growth) OVER (PARTITION BY industry_branch_name) > 0 THEN 'overall_increase'
+			WHEN AVG(salary_annual_growth) OVER (PARTITION BY industry_branch_name) < 0 THEN 'overall_decrease'
+			WHEN AVG(salary_annual_growth) OVER (PARTITION BY industry_branch_name) = 0 THEN 'overall_stagnation'
+			ELSE NULL
+		END AS flag_overall_growth_per_industry
 FROM cte_salary_history
 ORDER BY industry_branch_name, payroll_year
 ;
