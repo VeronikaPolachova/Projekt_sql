@@ -6,8 +6,8 @@ WITH cte_salary_history AS (
 	SELECT 
 		payroll_year,
 		industry_branch_name,
-		value_payroll AS salary,
-		LAG (AVG (value_payroll)) OVER (PARTITION BY industry_branch_name ORDER BY payroll_year) AS previous_year_salary,
+		ROUND (value_payroll) AS salary,
+		ROUND (LAG (AVG (value_payroll)) OVER (PARTITION BY industry_branch_name ORDER BY payroll_year)) AS previous_year_salary,
 		ROUND (((AVG(value_payroll) - LAG (AVG (value_payroll)) OVER (PARTITION BY industry_branch_name ORDER BY payroll_year))/ LAG (AVG (value_payroll)) OVER (PARTITION BY industry_branch_name ORDER BY payroll_year))*100, 2) AS salary_interannual_growth -- mezirocni narust mezd v procentech
 	FROM t_veronika_polachova_project_SQL_primary_final tvppspf
 	WHERE value_type_code = 5958
@@ -41,8 +41,8 @@ WITH cte_overall_salary_statistics AS (
 		SELECT 
 			payroll_year,
 			industry_branch_name,
-			value_payroll AS salary,
-			LAG (AVG (value_payroll)) OVER (PARTITION BY industry_branch_name ORDER BY payroll_year) AS previous_year_salary,
+			ROUND (value_payroll) AS salary,
+			ROUND (LAG (AVG (value_payroll)) OVER (PARTITION BY industry_branch_name ORDER BY payroll_year)) AS previous_year_salary,
 			ROUND (((AVG(value_payroll) - LAG (AVG (value_payroll)) OVER (PARTITION BY industry_branch_name ORDER BY payroll_year))/ LAG (AVG (value_payroll)) OVER (PARTITION BY industry_branch_name ORDER BY payroll_year))*100, 2) AS salary_interannual_growth -- mezirocni narust mezd v procentech
 		FROM t_veronika_polachova_project_SQL_primary_final tvppspf
 		WHERE value_type_code = 5958
