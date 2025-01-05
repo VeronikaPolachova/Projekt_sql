@@ -8,7 +8,8 @@ SELECT
 	category,
 	price_value,
 	price_unit,
-	ROUND (AVG (value_payroll)) AS avg_salary_in_CZK 
+	ROUND (AVG (value_payroll)) AS avg_salary_in_CZK,
+	ROUND (AVG (value_payroll)/AVG (value), 2) AS affordability_index
 FROM t_veronika_polachova_project_SQL_primary_final tvppspf 
 WHERE year IN (2006, 2018)
 AND category IN ('Chléb konzumní kmínový', 'Mléko polotučné pasterované')
