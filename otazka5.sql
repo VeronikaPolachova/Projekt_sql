@@ -20,7 +20,11 @@ WITH cte_interannual_growth AS (
 	WHERE s.country = 'Czech Republic'
 	GROUP BY p.payroll_year, s.GDP
 	)
-SELECT *, 
+SELECT 
+		payroll_year,
+		salary_percentage_growth,
+		price_percentage_growth,
+		GDP_percentage_growth,
 		CASE 
 			WHEN salary_percentage_growth > 0 THEN 'increase'
 			WHEN salary_percentage_growth < 0 THEN 'decrease'
