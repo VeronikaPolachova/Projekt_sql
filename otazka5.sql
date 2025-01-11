@@ -26,17 +26,20 @@ SELECT
 		price_percentage_growth,
 		GDP_percentage_growth,
 		CASE 
-			WHEN salary_percentage_growth > 0 THEN 'increase'
+			WHEN salary_percentage_growth > 0 AND salary_percentage_growth < 5 THEN 'increase'
+			WHEN salary_percentage_growth > 5 THEN 'significant increase'
 			WHEN salary_percentage_growth < 0 THEN 'decrease'
 			WHEN salary_percentage_growth = 0 THEN 'stagnation'
 		END AS salary_flag,
 		CASE 
-			WHEN price_percentage_growth > 0 THEN 'increase'
+			WHEN price_percentage_growth > 0 AND price_percentage_growth < 5 THEN 'increase'
+			WHEN price_percentage_growth > 5 THEN 'significant increase'
 			WHEN price_percentage_growth < 0 THEN 'decrease'
 			WHEN price_percentage_growth = 0 THEN 'stagnation'
 		END AS price_flag,
 		CASE 
-			WHEN GDP_percentage_growth > 0 THEN 'increase'
+			WHEN GDP_percentage_growth > 0 AND GDP_percentage_growth < 5 THEN 'increase'
+			WHEN GDP_percentage_growth > 5 THEN 'significant increase'
 			WHEN GDP_percentage_growth < 0 THEN 'decrease'
 			WHEN GDP_percentage_growth = 0 THEN 'stagnation'
 		END AS GDP_flag
