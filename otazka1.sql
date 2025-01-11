@@ -10,7 +10,6 @@ WITH cte_avg_salary_statistics AS (
 			ROUND (LAG (AVG (value_payroll)) OVER (PARTITION BY industry_branch_name ORDER BY payroll_year)) AS previous_year_salary,
 			ROUND (((AVG(value_payroll) - LAG (AVG (value_payroll)) OVER (PARTITION BY industry_branch_name ORDER BY payroll_year))/ LAG (AVG (value_payroll)) OVER (PARTITION BY industry_branch_name ORDER BY payroll_year))*100, 2) AS salary_interannual_growth -- mezirocni narust mezd v procentech
 		FROM t_veronika_polachova_project_SQL_primary_final tvppspf
-		WHERE value_type_code = 5958
 		GROUP BY payroll_year, industry_branch_name, value_payroll 
 		ORDER BY industry_branch_name, payroll_year 
 		)
@@ -46,4 +45,4 @@ WHERE 1=1
 AND flag_interannual_salary_growth IN ('interannual_decrease', 'interannual_stagnation') -- pokud chci konkretní rok a odvetvi, kdy mezirovne nedoslo k rustu platu
 -- AND flag_avg_growth_per_industry = 'avg_decrease' -- pokud chci videt, jestli a v jakych odvetvich doslo k prumernemu poklesu mezd za dane casove obdobi
 ORDER BY industry_branch_name, payroll_year
-;	
+;
