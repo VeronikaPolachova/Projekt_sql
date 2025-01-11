@@ -11,7 +11,6 @@ WITH cte_salary_price_differences AS (
 		ROUND ((((AVG (value_payroll)) - (LAG (AVG (value_payroll)) OVER (order by payroll_year)))/(LAG (AVG (value_payroll)) OVER (order by payroll_year))*100), 2) AS percentage_salary_growth,
 		ROUND ((((AVG (value)) - (LAG (AVG (value)) OVER (order by payroll_year)))/(LAG (AVG (value)) OVER (order by payroll_year))*100), 2) AS percentage_price_growth
 	FROM t_veronika_polachova_project_SQL_primary_final tvppspf 
-	WHERE value_type_code = 5958
 	GROUP BY payroll_year 
 )
 SELECT 
