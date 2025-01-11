@@ -45,17 +45,14 @@ ON cp.region_code = cr.code
 ;
 
 
--- JOIN selectu A a B a economies
+-- JOIN selectu A a B 
 
 -- TABULKA 1: 
 
 CREATE OR REPLACE TABLE t_veronika_polachova_project_SQL_primary_final AS 
 SELECT
 	A.*,
-	B.*, 
-	e.GDP, 
-	e.population,
-	e.taxes
+	B.*
 FROM (
 			SELECT 
 			year(cp.date_from) AS year,
@@ -97,14 +94,15 @@ FROM (
 		GROUP BY cp.payroll_year, cp.calculation_code, cpc.name, cp.industry_branch_code, cpib.name, cpvt.code, cpvt.name, cp.unit_code, cpu.name
 			) AS B
 	ON A.year = B.payroll_year
-LEFT JOIN economies e 
-	ON A.year = e.year
-	AND B.payroll_year = e.year
+-- LEFT JOIN economies e 
+-- 	ON A.year = e.year
+-- 	AND B.payroll_year = e.year
 WHERE A.region_code IS NULL 
 AND B.value_payroll IS NOT NULL
-AND country = 'Czech Republic'
+-- AND country = 'Czech Republic'
 AND B.calculation_code = 200
 AND B.industry_branch_code IS NOT NULL
+AND B.value_type_code = 5958
 ;
 
 
