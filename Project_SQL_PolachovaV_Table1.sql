@@ -1,4 +1,5 @@
 -- PROJECT SQL --
+-- Discord: veronikapolachova
 
 -- TABULKA 1 
 
